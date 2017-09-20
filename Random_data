@@ -1,0 +1,103 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+public class RandomData {
+	    private static final String READ_FILENAME = "C:\\Users\\redgo03\\Desktop\\sri_data\\GBR Data\\French_LNames_data.txt";
+	    private static final String WRITE_FILENAME = "C:\\Users\\redgo03\\Desktop\\sri_data\\Java\\French_Lnames_data.txt";
+	    private static List<String> names = new ArrayList();
+	    private static String output= "";
+
+	    public static void main(String[] args) {
+	        readFile();
+	        writeFile();
+	    }
+
+	    private static void writeFile() {
+	        BufferedWriter bw = null;
+	        FileWriter fw = null;
+
+	        try {
+	            Random rand = new Random();
+
+	            for(int i =0; i< 100; i++) {
+	                int  n = rand.nextInt(names.size()) + 1;
+	                output += names.get( n ) + "\r\n";
+	            }
+
+	            fw = new FileWriter(WRITE_FILENAME);
+	            bw = new BufferedWriter(fw);
+	            bw.write(output);
+
+	            System.out.println("Done");
+	            System.out.println(output);
+
+	        } catch (IOException e) {
+
+	            e.printStackTrace();
+
+	        } finally {
+
+	            try {
+
+	                if (bw != null)
+	                    bw.close();
+
+	                if (fw != null)
+	                    fw.close();
+
+	            } catch (IOException ex) {
+
+	                ex.printStackTrace();
+
+	            }
+
+	        }
+
+
+	    }
+
+	    private static void readFile() {
+	        BufferedReader br = null;
+	        FileReader fr = null;
+
+	        try {
+
+	            //br = new BufferedReader(new FileReader(FILENAME));
+	            fr = new FileReader(READ_FILENAME);
+	            br = new BufferedReader(fr);
+
+	            String sCurrentLine;
+
+	            while ((sCurrentLine = br.readLine()) != null) {
+	                names.add(sCurrentLine);
+	            }
+
+	        } catch (IOException e) {
+
+	            e.printStackTrace();
+
+	        } finally {
+
+	            try {
+
+	                if (br != null)
+	                    br.close();
+
+	                if (fr != null)
+	                    fr.close();
+
+	            } catch (IOException ex) {
+
+	                ex.printStackTrace();
+
+	            }
+
+	        }
+
+	    }
+	}
